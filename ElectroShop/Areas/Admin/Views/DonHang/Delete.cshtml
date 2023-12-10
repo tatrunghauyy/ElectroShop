@@ -1,0 +1,54 @@
+﻿@model ElectroShop.Models.DONDATHANG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    h3, h4 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+<h3>Bạn quyết định xóa đơn hàng này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao)</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Mã đơn hàng:</dt>
+        <dd>@Html.DisplayFor(model => model.MaDonHang) </dd>
+        <dt> Đã thanh toán </dt>
+        <dd>@Html.DisplayFor(model => model.DaThanhToan) </dd>
+        <dt> Tình trạng đơn hàng: </dt>
+        <dd>@Html.DisplayFor(model => model.TinhTrangGiaoHang) </dd>
+        <dt> Ngày đặt:</dt>
+        <dd> @Html.FormatValue(@Model.NgayDat, "{0:dd/MM/yyyy}") </dd>
+        <dt> Ngày giao: </dt>
+        <dd> @Html.FormatValue(@Model.NgayGiao, "{0:dd/MM/yyyy}")</dd>
+        <dt>Họ tên: </dt>
+        <dd> @Html.DisplayFor(model => model.HoTen)</dd>
+        <dt>Email: </dt>
+        <dd> @Html.DisplayFor(model => model.Email)</dd>
+        <dt>Địa chỉ: </dt>
+        <dd> @Html.DisplayFor(model => model.Email)</dd>
+        <dt>Họ tên: </dt>
+        <dd> @Html.DisplayFor(model => model.Email)</dd>
+        <dt>Tổng tiền: </dt>
+        <dd> @Html.DisplayFor(model => model.ThanhTien, "{0:#,##0}") VNĐ</dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-default" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ ĐƠN HÀNG", "Index")
+        </div>
+    }
+</div>

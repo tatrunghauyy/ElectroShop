@@ -1,0 +1,37 @@
+﻿@model ElectroShop.Models.HANG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    h3, h4 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+
+<h3>Bạn quyết định xóa hãng sản phẩm này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao)</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên hãng:</dt>
+        <dd>@Html.DisplayFor(model => model.TenHang) </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-default" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ HÃNG SẢN PHẨM", "Index")
+        </div>
+    }
+</div>

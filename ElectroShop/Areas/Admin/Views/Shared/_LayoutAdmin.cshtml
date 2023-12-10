@@ -1,0 +1,177 @@
+﻿@using ElectroShop.Models
+@using ADMIN = ElectroShop.Models.ADMIN
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/Scripts/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/Scripts/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/style.css" />
+    <style>
+        .cart-link,
+        .card-link {
+            font-weight: bold;
+            text-decoration: none;
+            color: white; /* Set the color to white */
+            display: flex;
+            align-items: center;
+        }
+
+            .cart-link i {
+                margin-right: 5px; /* Adjust the margin as needed */
+            }
+    </style>
+    <style>
+        .custom-nav {
+            background-color: #333; /* Set a dark background color for the navigation */
+            text-align: center; /* Center-align the navigation items */
+            padding: 10px 0; /* Add padding to the navigation bar */
+        }
+
+            .custom-nav ul {
+                list-style: none; /* Remove default list styles */
+                padding: 0;
+                margin: 0;
+                display: flex; /* Display list items horizontally */
+                justify-content: center; /* Center-align list items horizontally */
+            }
+
+            .custom-nav li {
+                margin: 0 10px; /* Add margin between list items */
+            }
+
+            .custom-nav a {
+                font-weight: bold;
+                text-decoration: none;
+                color: white; /* Set text color to white */
+                display: flex;
+                align-items: center;
+                padding: 10px;
+            }
+
+                .custom-nav a:hover {
+                    border-bottom: 2px solid white; /* Add a white underline on hover */
+                }
+    </style>
+
+
+</head>
+<body>
+    <header>
+        <div id="top-header">
+            <div class="container">
+            </div>
+            <div id="header">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <!-- LOGO -->
+                        <div class="col-md-3">
+                            <div class="header-logo">
+                                <a href="@Url.Action("Index", "Admin")" class="logo">
+                                    <img src="~/Images/logo.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="header-ctn">
+                                <!-- Wishlist -->
+                                <div>
+                                    <ul>
+                                        <li>
+                                            @if (Session["Admin"] is ElectroShop.Models.ADMIN admin && admin != null)
+                                            {
+                                                <a href="#" class="card-link">
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                    Xin chào: @admin.HoTen
+                                                </a>
+                                            }
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Logout", "Admin")" class="cart-link">
+                                                <span class="glyphicon glyphicon-log-out"></span>
+                                                Đăng xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /ACCOUNT -->
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- container -->
+            </div>
+        </div>
+    </header>
+
+    <nav class="custom-nav">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index","SanPham")">QUẢN LÝ SẢN PHẨM</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Hang")">QUẢN LÝ HÃNG</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","Loai")">QUẢN LÝ LOẠI SẢN PHẨM</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","DonHang")">QUẢN LÝ ĐƠN HÀNG</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /container -->
+    </nav>
+
+    <div class="container">
+        <p></p>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>

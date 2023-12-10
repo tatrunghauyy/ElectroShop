@@ -1,0 +1,98 @@
+﻿@*Khai báo để sử dụng chức năng phân trang*@
+@using ElectroShop.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<ElectroShop.Models.DONDATHANG>
+@*Xây dựn một helper tùy chỉnh để cắt độ dài chuỗi*@
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center;">QUẢN LÝ THÔNG TIN ĐƠN ĐẶT HÀNG</h2>
+<table class="table">
+    <tr>
+        <th style="text-align: center; width: 140px ">
+            Mã đơn đặt hàng
+        </th>
+        <th style="text-align: center; width: 140px">
+            Đã thanh toán
+        </th>
+        <th style="text-align: center; width: 140px">
+            Tình trạng giao hàng
+        </th>
+        <th style="text-align: center; width: 140px">
+            Ngày đặt
+        </th>
+        <th style="text-align: center; width: 140px">
+            Ngày giao
+        </th>
+        <th style="text-align: center; width: 140px">
+            Họ tên
+        </th>
+        <th style="text-align: center; width: 140px">
+            Email
+        </th>
+        <th style="text-align: center; width: 140px">
+            Điện thoại
+        </th>
+        <th style="text-align: center; width: 140px">
+            Địa chỉ
+        </th>
+        <th style="text-align: center; width: 140px">
+            Tổng tiền
+        </th>
+        <th style="text-align:center"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDonHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DaThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhTrangGiaoHang)
+            </td>
+            <td>
+                @Html.FormatValue(@item.NgayDat, "{0:dd/MM/yyyy}")
+            </td>
+            <td>
+                @Html.FormatValue(@item.NgayGiao, "{0:dd/MM/yyyy}")
+            </td>
+            <td>
+                @Truncate(item.HoTen, 10)
+            </td>
+            <td>
+                @Truncate(item.Email, 10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Truncate(item.DiaChi, 10)
+            </td>
+            <td>
+                @Html.FormatValue(item.ThanhTien, "{0:#,##0}")
+            </td>
+
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.MaDonHang })" class="btn btn-warning" role="button" style="width: 77px; height: 34px;">Sửa</a>
+                <a href="@Url.Action("Details", new { id = item.MaDonHang })" class="btn btn-primary" role="button" style="width: 77px; height: 34px;">Chi tiết</a>
+                <a href="@Url.Action("Delete", new { id = item.MaDonHang })" class="btn btn-danger" role="button" style="width: 77px; height: 34px;">Xóa</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,83 @@
+﻿@model ElectroShop.Models.DONDATHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+<h2 style="text-align:center">CHI TIẾT ĐƠN ĐẶT HÀNG</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã đặt hàng:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaDonHang)
+        </dd>
+        <dt>
+            Đã thanh toán
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DaThanhToan)
+        </dd>
+        <dt>
+            Tình trạng giao hàng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrangGiaoHang)
+        </dd>
+        <dt>
+            Ngày đặt:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+        <dt>
+            Ngày giao:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiao)
+        </dd>
+        <dt>
+            Họ tên:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+        <dt>
+            Email:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            Điện thoại:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+        <dt>
+            Địa chỉ:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+        <dt>
+            Tổng tiền:
+        </dt>
+        <dd>
+            Html.FormatValue(@Model.ThanhTien, "{0:#,##0}") VNĐ
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaDonHang }) |
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SẢN PHẨM", "Index")
+</p>

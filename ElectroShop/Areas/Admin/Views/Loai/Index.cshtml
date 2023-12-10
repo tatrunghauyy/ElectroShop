@@ -1,0 +1,65 @@
+﻿@*Khai báo để sử dụng chức năng phân trang*@
+@using ElectroShop.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<ElectroShop.Models.LOAISP>
+@*Xây dựn một helper tùy chỉnh để cắt độ dài chuỗi*@
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center;">QUẢN LÝ THÔNG TIN LOẠI SẢN PHẨM</h2>
+
+<div class="center-table">
+    <table class="table">
+        <tr>
+            <th style="text-align:center;width:300px">
+                Tên loại sản phẩm
+            </th>
+            <th style="text-align:center">@Html.ActionLink("Thêm mới", "Create")</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:center">
+                    @*Sử dụng helper để cắt TenSach lấy 50 ký tự*@
+                    @Truncate(item.TenLoai, 50)
+                </td>
+                <td style="text-align:center">
+                    <a href="@Url.Action("Delete", new { id = item.MaLoai })" class="btn btn-danger" role="button">Xóa</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="text-center">
+    @*Tạo liên kết phần trang*@
+    Trang @(Model.PageCount < Model.PageNumber ? 0 :
+    Model.PageNumber)/@Model.PageCount
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+
+    .center-table {
+        margin: auto;
+        width: 50%; /* Thay đổi giá trị theo ý muốn của bạn */
+    }
+</style>
