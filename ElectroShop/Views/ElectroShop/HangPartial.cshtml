@@ -1,0 +1,11 @@
+﻿    @model IEnumerable<ElectroShop.Models.HANG>
+    <ul class="main-nav nav navbar-nav">
+        <li class="active"><a href="@Url.Action("Index", "ElectroShop")">Trang chủ</a></li>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("SanPhamTheoHang","ElectroShop", new {id = item.MaHang})">@item.TenHang</a>
+            </li>
+        }
+    </ul>
+

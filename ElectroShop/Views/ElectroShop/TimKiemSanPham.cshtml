@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<ElectroShop.Models.SANPHAM>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "TimKiemSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    @functions {
+    public string Abbreviate(string input, int maxLength)
+    {
+        if (input.Length <= maxLength)
+        {
+            return input;
+        }
+        else
+        {
+            return input.Substring(0, maxLength) + "...";
+        }
+    }
+}
+</script>
+<h2 style="text-align: center">Kết quả tìm kiếm cho "@ViewBag.Keyword"</h2>
+
+@if (Model.Any())
+{
+    <div class="row text-center">
+        @foreach (var sp in Model)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-7 sp">
+                <div class="thumbnail">
+                    <img src="~/Images/@sp.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook">
+                    <div class="caption">
+                        <h4 class="ten">
+                            <a href="@Url.Action("ChiTietSP", "ElectroShop", new { id = sp.MaSP })">@Abbreviate(sp.TenSP, 20)</a>
+                        </h4>
+                        <h4>@string.Format("{0:N0}VNĐ", sp.GiaBan)</h4>
+                        <p>
+                            <a href="@Url.Action("ThemGioHang","GioHang", new { ms = sp.MaSP, url = Request.Url.ToString() })" class="btn btn-primary1" role="button">
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add to Cart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div class="text-center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("TimKiemSanPham", new { page, keyword = ViewBag.Keyword }))
+    </div>
+}
+else
+{
+    <p>Không tìm thấy kết quả nào.</p>
+}
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+
+    .btn-primary1 {
+        color: #fff;
+        background-color: #D10024;
+        border-color: #D10024;
+    }
+</style>

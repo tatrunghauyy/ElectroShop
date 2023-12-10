@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/Scripts/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/Scripts/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/Scripts/style.css" />
+    <link href="~/Scripts/styleapp.css" rel="stylesheet" />
+    <script src="~/Scripts/app.js"></script>
+    <script>
+        function performSearch() {
+            var searchInputValue = document.getElementById('searchInput').value;
+            window.location.href = '@Url.Action("TimKiemSanPham", "ElectroShop")?keyword=' + encodeURIComponent(searchInputValue);
+        }
+
+
+    </script>
+    <style type="text/css">
+        #responsive-nav {
+            overflow: hidden;
+        }
+
+        .imgbook {
+            transition: all 1s ease-in;
+            width: 400px;
+        }
+
+            .imgbook:hover {
+                transform: scale(0.9);
+                cursor: pointer;
+            }
+
+        .imgsachbannhieu {
+            width: 100px;
+        }
+
+        .thumbnail {
+            height: 520px;
+        }
+
+            .thumbnail img {
+                height: 380px;
+            }
+
+        .ten {
+            height: 50px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- TOP HEADER -->
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li><a href="#"><i class="fas fa-phone"></i> +84-349-158-802</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i>2124802010703@student.tdmu.edu.vn</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker"></i>Thủ Dầu Một</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /TOP HEADER -->
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="@Url.Action("Index", "ElectroShop")" class="logo">
+                                <img src="~/Images/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-7">
+                        <div class="header-search">
+                            <form>
+                                <select class="input-select" onchange="window.location.href=this.value">
+                                    <option value="0">Danh mục</option>
+                                    @Html.Action("LoaiSPPartial", "ElectroShop")
+                                </select>
+                                <input class="input" id="searchInput" placeholder="Search here">
+                                <button type="button" class="search-btn" onclick="performSearch()">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+                    <!-- ACCOUNT -->
+                    <div class="col-md-2">
+                        <div class="header-ctn">
+                            <!-- Wishlist -->
+                            <div>
+                                <ul>
+                                    @Html.Action("GioHangPartial", "GioHang")
+                                </ul>
+                            </div>
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                @Html.Action("HangPartial", "ElectroShop")
+                <!-- /NAV -->
+            </div>
+        </div>
+        <!-- /container -->
+    </nav>
+
+    <!-- /NAVIGATION -->
+    <div class="container body-content">
+        @RenderBody()
+        @Html.Action("SanPhamBanNhieuPartial", "ElectroShop")
+        <hr />
+        <footer>
+            <p></p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

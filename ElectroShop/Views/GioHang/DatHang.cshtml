@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "DatHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .custom-table {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        color: #333;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+    .error-message {
+        color: red;
+    }
+</style>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            @using (Html.BeginForm("DatHang", "GioHang"))
+            {
+                @Html.ValidationSummary(true)
+                <div class="col-md-7">
+                    <!-- Billing Details -->
+                    <div>
+                        <div></div>
+                        <div class="billing-details">
+                            <div class="section-title">
+                                <h3 class="title">Thông tin đặt hàng</h3>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBox("HoTen", null, new {@class = "input", placeholder = "Họ Tên" }) @ViewData["err1"]
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBox("Email", null, new { @class = "input", placeholder = "Email" }) @ViewData["err2"]
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBox("DienThoai", null, new { @class = "input", placeholder = "Số điện thoại" }) @ViewData["err3"]
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBox("DiaChi", null, new { @class = "input", placeholder = "Địa Chỉ" }) @ViewData["err4"]
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Billing Details -->
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-md-5 order-details">
+                    <div class="section-title text-center">
+                        <h3 class="title">Thông tin hóa đơn</h3>
+                    </div>
+                    <table border="1" width="100%" class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.sTenSP</td>
+                                    <td class="center-text">
+                                        @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { iMaSP = item.iMaSP }))
+                                        {
+                                            <span>@item.iSoLuong</span>
+                                        }
+                                    </td>
+                                    <td>@string.Format("{0:#,##0,0}", @item.dThanhTien)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>THÀNH TIỀN</strong></td>
+                                <td><strong class="order-total">@string.Format("{0:#,##0,0}", @ViewBag.TongTien)</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <input type="submit" value="Thanh toán" class="primary-btn order-submit" style="width: 100%;">
+                </div>
+                <!-- /Order Details -->
+            }
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

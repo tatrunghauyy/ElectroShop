@@ -1,0 +1,73 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ElectroShop.Models.SANPHAM>
+@{
+    ViewBag.Title = "SanPhamTheoHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    @functions {
+    public string Abbreviate(string input, int maxLength)
+    {
+        if (input.Length <= maxLength)
+        {
+            return input;
+        }
+        else
+        {
+            return input.Substring(0, maxLength) + "...";
+        }
+    }
+}
+</script>
+@if (Model.Any())
+{
+    <hr />
+    <h2 class="text-center">Sản phẩm theo hãng @ViewBag.ten</h2>
+    <hr />
+    <div class="row text-center">
+        @foreach (var sp in Model)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-7 sp">
+                <div class="thumbnail">
+                    <img src="~/Images/@sp.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook">
+                    <div class="caption">
+                        <h4 class="ten">
+                            <a href="@Url.Action("ChiTietSP", "ElectroShop", new { id = sp.MaSP })">@Abbreviate(sp.TenSP, 20)</a>
+                        </h4>
+                        <h4>@string.Format("{0:N0}VNĐ", sp.GiaBan)</h4>
+                        <p>
+                            <a href="@Url.Action("ThemGioHang","GioHang", new { ms = sp.MaSP, url = Request.Url.ToString() })" class="btn btn-primary1" role="button">
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add to Cart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="text-center">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        <div class="MenuTrang">
+            @Html.PagedListPager(Model, page => Url.Action("SanPhamTheoHang", new { page }), new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded
+            })
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-center">Không có sản phẩm nào cho hãng này.</p>
+}
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+    .btn-primary1 {
+        color: #fff;
+        background-color: #D10024;
+        border-color: #D10024;
+    }
+</style>

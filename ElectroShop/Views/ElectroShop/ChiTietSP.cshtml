@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietSP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .tensp {
+        text-align: center;
+        font-family: Tahoma;
+        font-size: 22px;
+        font-weight: bolder;
+        text-transform: uppercase;
+        height: 30px;
+        padding: 25px 0px 50px 0px;
+    }
+
+    .anh {
+        width: 350px;
+        padding: 0px 20px;
+    }
+
+    .motasp {
+        text-align: justify;
+        margin-top: 20px;
+        padding-right: 50px;
+        font-size: 15px;
+    }
+
+    .khoiA {
+        margin-left: 600px;
+        font-size: 15px;
+    }
+</style>
+<div class="thumbnail" style="height:auto;">
+    <h4 class="tensp">@Model.TenSP</h4>
+    <img style="height:400px;" class="anh" src="~/Images/@Model.AnhBia" alt="@Model.TenSP" />
+    <div>
+        <p class="motasp">
+            @Html.Raw(Model.MoTa.ToString().Replace("\n", "</p><p>/&nbsp&nbsp&nbsp&nbsp&nbsp"))
+        </p>
+    </div>
+
+    <div class="khoiA">
+        <p class="ngaycapnhat"><b>Ngày cập nhật:</b> <i>@Html.FormatValue(@Model.NgayCapNhat, "{0:dd/MM/yyyy}")</i></p>
+        <p class="giaban"><b>Giá bán:</b> <span style="color: #D10024; font-size: 25px; font-family: Tahoma; font-style: italic; font-weight: 800;">@Html.FormatValue(@Model.GiaBan, "{0:#,##0}")VNĐ</span></p>
+        <p>
+            <a href="@Url.Action("ThemGioHang","GioHang", new { ms = Model.MaSP, url =Request.Url.ToString() }) " class="btn btn-primary1" role="button">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add to Cart
+            </a>
+        </p>
+    </div>
+</div>
+<style>
+    .btn-primary1 {
+        color: #fff;
+        background-color: #D10024;
+        border-color: #D10024;
+    }
+</style>

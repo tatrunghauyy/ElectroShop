@@ -1,0 +1,119 @@
+﻿
+@model IEnumerable<ElectroShop.Models.SANPHAM>
+
+<hr>
+<h2 class="text-center">SẢN PHẨM ĐƯỢC MUA NHIỀU NHẤT</h2>
+<hr>
+
+<div class="book-slider-container">
+    <button class="slider-button prev-button" id="prevButton"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="slider-button next-button" id="nextButton"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="book-slider">
+        @foreach (var sp in Model)
+        {
+            <div class="book-slide">
+                <div class="thumbnail">
+                    <img src="~/Images/@sp.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook">
+                    <div class="caption">
+                        <h4 class="ten">
+                            <a href="@Url.Action("ChiTietSP", "ElectroShop", new { id = sp.MaSP })">@Abbreviate(sp.TenSP, 20)</a>
+                        </h4>
+                        <h4>@string.Format("{0:N0}VNĐ", sp.GiaBan)</h4>
+                        <p>
+                            <a href="@Url.Action("ThemGioHang","GioHang", new { ms = sp.MaSP, url = Request.Url.ToString() })" class="btn btn-primary1" role="button">
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add to Cart
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+    .book-slider-container {
+        overflow: hidden;
+        position: center;
+        width: 100%;
+    }
+
+    .book-slider {
+        display: flex;
+        overflow-x: hidden;
+        scroll-behavior: unset;
+    }
+
+    .book-slide {
+        flex: 0 0 33.3333%; /* Chia 3 cột cho mỗi slide */
+        padding: 10px;
+        /* Thêm kiểu dáng và khoảng cách cho từng cuốn sách */
+    }
+
+    .prev-button,
+    .next-button {
+        background-color: #fff;
+        color: #000000;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .prev-button {
+        float: left;
+    }
+
+    .next-button {
+        float: right;
+    }
+
+    .slider-button {
+        height: 540px;
+    }
+
+    .caption {
+        text-align: center;
+    }
+
+</style>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+
+    .btn-primary1 {
+        color: #fff;
+        background-color: #D10024;
+        border-color: #D10024;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var slider = $(".book-slider");
+        var slideWidth = $(".book-slide").outerWidth();
+        var scrollAmount = slideWidth * 1; // Di chuyển 1 cuốn sách mỗi lần
+
+        $("#nextButton").click(function () {
+            slider.animate({ scrollLeft: "+=" + scrollAmount }, 500);
+        });
+
+        $("#prevButton").click(function () {
+            slider.animate({ scrollLeft: "-=" + scrollAmount }, 500);
+        });
+    });
+    @functions {
+    public string Abbreviate(string input, int maxLength)
+    {
+        if (input.Length <= maxLength)
+        {
+            return input;
+        }
+        else
+        {
+            return input.Substring(0, maxLength) + "...";
+        }
+    }
+}
+</script>
+

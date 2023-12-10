@@ -1,0 +1,144 @@
+﻿@using ElectroShop.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #9ca1a4;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    img {
+        width: 100px;
+    }
+
+    input[type="number"] {
+        background-color: #f4ff94;
+        width: 70px;
+    }
+
+    .actions {
+        text-align: center;
+    }
+
+    .total {
+        font-weight: bold;
+        color: blue;
+        text-align: right;
+    }
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    table {
+        margin: 20px auto;
+        border-collapse: collapse;
+        width: 80%;
+    }
+
+    th, td {
+        border: 1px solid #9ca1a4;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #9ca1a4;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .total-row {
+        font-weight: bold;
+        color: blue;
+        text-align: right;
+    }
+
+    .form-table {
+        margin: 20px auto;
+        width: 50%;
+    }
+
+        .form-table tr {
+            height: 40px;
+        }
+
+        .form-table td {
+            font-weight: bold;
+        }
+</style>
+
+<h2 style="text-align: center">THÔNG TIN GIỎ HÀNG</h2>
+<table>
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Ảnh Bìa</th>
+        <th>Số Lượng</th>
+        <th>Đơn Giá</th>
+        <th>Thành Tiền</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.iMaSP</td>
+            <td>@item.sTenSP</td>
+            <td><img src="~/Images/@item.sAnhBia" alt="@item.sTenSP" /></td>
+            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { iMaSP = item.iMaSP }))
+            {
+                <td>
+                    <input type="number" min="1" name="txtSoLuong" value="@item.iSoLuong"  />
+                </td>
+                <td>@string.Format("{0:#,##0,0}", item.dDonGia)</td>
+                <td>@string.Format("{0:#,##0,0}", item.dThanhTien)</td>
+                <td><a href="@Url.Action("ChiTietSP","ElectroShop",new {id = item.iMaSP})">Chi Tiết</a></td>
+                <td>@Html.ActionLink("Xóa", "XoaSPKhoiGioHang", new { @iMaSP = item.iMaSP })</td>
+                <td class="actions">
+                    <input type="submit" value="Cập nhật" />
+                </td>
+            }
+        </tr>
+    }
+    <tr class="total">
+        <td colspan="4" style="font-weight: bold; color: black;">Tổng số lượng: @string.Format("{0:#,##0}", @ViewBag.TongSoLuong)</td>
+        <td colspan="5" style="font-weight: bold; color: black;">Tổng tiền: @string.Format("{0:#,##0,0}", ViewBag.TongTien) VNĐ</td>
+    </tr>
+    <tr class="total">
+        <td colspan="9">
+            @Html.ActionLink("Xóa giỏ hàng", "XoaGioHang")
+        </td>
+    </tr>
+    <tr class="total">
+        <td colspan="9">
+            @Html.ActionLink("ĐẶT HÀNG", "DatHang", "GioHang")
+        </td>
+    </tr>
+</table>

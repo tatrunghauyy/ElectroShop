@@ -1,0 +1,5 @@
+﻿@model IEnumerable<ElectroShop.Models.LOAISP>
+@foreach (var item in Model)
+{
+    <option value="@Url.Action("SanPhamTheoLoai", "ElectroShop", new { id = item.MaLoai })">@item.TenLoai</option>
+}
